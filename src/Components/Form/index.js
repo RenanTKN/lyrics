@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ handleSong, handleBand, handleSubmit }) => (
+export default ({ song, handleSong, band, handleBand, handleSubmit }) => (
   <form
     className="form-inline justify-content-center mt-2"
     onSubmit={handleSubmit}
@@ -11,6 +11,7 @@ export default ({ handleSong, handleBand, handleSubmit }) => (
       id="song"
       name="song"
       placeholder="Song"
+      value={song}
       onChange={handleSong}
     />
     <input
@@ -19,6 +20,7 @@ export default ({ handleSong, handleBand, handleSubmit }) => (
       id="band"
       name="band"
       placeholder="Band"
+      value={band}
       onChange={handleBand}
     />
     <button type="submit" className="btn btn-primary mb-2">

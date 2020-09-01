@@ -21,20 +21,30 @@ button {
   box-shadow: none !important;
 }
 
-.lyrics {
-  text-align: center;
-  height: 88vh;
+.lyrics-container {
+  display: flex;
+  justify-content: center;
 }
 
-.lyrics > pre {
-  color: #eee;
+.lyrics {
+  text-align: center;
   background: rgba(0, 0, 0, 0.8);
-  display: inline-block;
-  padding: 10px 50px 10px 50px;
   border-radius: 10px;
-  overflow: auto;
+  display: inline-block;
   max-height: 100%;
   box-sizing: border-box;
+}
+
+.lyrics-content {
+  padding: 10px 50px 10px 50px;
+  overflow: auto;
+  width: 100%;
+}
+
+.lyrics-content > pre {
+  height: 80vh;
+  overflow: visible;
+  color: #eee;
 }
 
 .spinner {

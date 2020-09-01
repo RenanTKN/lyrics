@@ -5,30 +5,33 @@ import Form from "./Components/Form";
 import Lyrics from "./Components/Lyrics";
 
 function App() {
-  const [song, setSong] = useState();
-  const [band, setBand] = useState();
-  const [lyrics, setLyrics] = useState();
-  const [loading, setLoading] = useState();
+  const [song, setSong] = useState("");
+  const [band, setBand] = useState("");
+  const [title, setTitle] = useState("");
+  const [lyrics, setLyrics] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSong = e => {
-    setSong(normalize(e.target.value));
+  const handleSong = (e) => {
+    setSong(e.target.value.toUpperCase());
   };
 
-  const handleBand = e => {
-    setBand(normalize(e.target.value));
+  const handleBand = (e) => {
+    setBand(e.target.value.toUpperCase());
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLyrics();
-    setLoading(spinner);
+    setLyrics("");
+    setLoading(true);
 
     try {
       const lyricsResponse = await findLyrics(band, song);
       const data = await lyricsResponse.json();
       if (data.lyrics) {
         setLyrics(data.lyrics);
+        setTitle(`${band} - ${song}`.toUpperCase());
+        setLoading(false);
       } else {
         setLyrics(data.error);
       }
@@ -41,23 +44,16 @@ function App() {
     return fetch(`https://api.lyrics.ovh/v1/${band}/${song}`);
   };
 
-  const spinner = () => (
-    <div className="spinner-grow text-light" role="status">
-      <span className="sr-only">Loading...</span>
-    </div>
-  );
-
-  const normalize = str => str.toUpperCase();
-
   return (
     <div>
       <Form
         song={song}
         handleSong={handleSong}
+        band={band}
         handleBand={handleBand}
         handleSubmit={handleSubmit}
       />
-      <Lyrics band={band} song={song} loading={loading} lyrics={lyrics} />
+      <Lyrics title={title} loading={loading} lyrics={lyrics} />
     </div>
   );
 }
